@@ -27,6 +27,7 @@ Adafruit_SSD1306 display(OLED_MOSI, OLED_CLK, OLED_DC, OLED_RESET, OLED_CS);
 
 void set_menu (void);
 void calc_batt (void);
+void print_menu (void);
 
 volatile uint8_t menu_state=0, Encoder_pos=0, enc_temp=0;
 
@@ -49,98 +50,7 @@ void setup() {
 
 void loop() {
 
-uint8_t menu_layer=0;
-
-
-    switch (menu_state) {
-      // prototyp Funktion void FKT (uint8_t ebene, uint8_t menu_pkt, *titel_name)
-      // wenn nicht ausgewählt durch fixwert aus sichtbereich schieben? "X_OFFSET-100" sonst -8
-      case 1:{
-        menu_layer=1;
-        display.clearDisplay();
-        display.setCursor(TIT_OFFSET,ZEILE1);
-        display.print("-- Dolly --   ");
-          display.print("[");
-          display.print(menu_layer);  //HERE BATTERY STATUS
-          display.print("]");
-
-          display.setCursor(18,8);
-          display.print("-----------------");
-
-        display.setCursor(X_OFFSET-8,ZEILE2);
-        display.print(">");
-        display.setCursor(X_OFFSET,ZEILE2);
-        display.print("Menu");
-        display.setCursor(X_OFFSET-100,ZEILE3);
-        display.print(">");
-        display.setCursor(X_OFFSET,ZEILE3);
-        display.print("Menu");
-        calc_batt();  // HERE [BACK] BUTTON
-        display.display();
-      }
-        break;
-      case 2:{
-        menu_layer=2;
-        display.clearDisplay();
-        display.setCursor(TIT_OFFSET,ZEILE1);
-        display.print("-- Dolly --   ");
-          display.print("[");
-          display.print(menu_layer);
-          display.print("]");
-
-          display.setCursor(18,8);
-          display.print("-----------------");
-
-        display.setCursor(X_OFFSET-100,ZEILE2);
-        display.print(">");
-        display.setCursor(X_OFFSET,ZEILE2);
-        display.print("Menu");
-        display.setCursor(X_OFFSET-8,ZEILE3);
-        display.print(">");
-        display.setCursor(X_OFFSET,ZEILE3);
-        display.print("Menu");
-        calc_batt();
-        display.display();
-      }
-        break;
-      case 3:{
-        menu_layer=3;
-        display.clearDisplay();
-        display.setCursor(TIT_OFFSET,ZEILE1);
-        display.print("-- Dolly --   ");
-          display.print("[");
-          display.print(menu_layer);
-          display.print("]");
-
-          display.setCursor(18,8);
-          display.print("-----------------");
-
-        display.setCursor(X_OFFSET-8,ZEILE2);
-        display.print(">");
-        display.setCursor(X_OFFSET,ZEILE2);
-        display.print("Menu");
-        display.setCursor(X_OFFSET-100,ZEILE3);
-        display.print(">");
-        display.setCursor(X_OFFSET,ZEILE3);
-        display.print("Menu");
-        calc_batt();
-        display.display();
-      }
-        break;
-      default:{
-        display.clearDisplay();
-        display.setCursor(17,ZEILE1);
-        display.print("X-Slider M.Tekaat");
-        display.setCursor(TIT_OFFSET,ZEILE2);
-        display.print("ver. 0.1");
-        // print Battery charge
-        calc_batt();
-        display.display();
-      }
-        break;
-    }
-
-
+  print_menu();
 
     delayMicroseconds(250);
   }
@@ -201,4 +111,96 @@ void calc_batt (void){
   // print dummy Value till implementation
   display.setCursor(109,ZEILE3);
   display.print(bat_perc);
+}
+
+void print_menu (void){
+  uint8_t menu_layer=0;
+
+  switch (menu_state) {
+    // prototyp Funktion void FKT (uint8_t ebene, uint8_t menu_pkt, *titel_name)
+    // wenn nicht ausgewählt durch fixwert aus sichtbereich schieben? "X_OFFSET-100" sonst -8
+    case 1:{
+      menu_layer=1;
+      display.clearDisplay();
+      display.setCursor(TIT_OFFSET,ZEILE1);
+      display.print("-- Dolly --   ");
+        display.print("[");
+        display.print(menu_layer);  //HERE BATTERY STATUS
+        display.print("]");
+
+        display.setCursor(18,8);
+        display.print("-----------------");
+
+      display.setCursor(X_OFFSET-8,ZEILE2);
+      display.print(">");
+      display.setCursor(X_OFFSET,ZEILE2);
+      display.print("Menu");
+      display.setCursor(X_OFFSET-100,ZEILE3);
+      display.print(">");
+      display.setCursor(X_OFFSET,ZEILE3);
+      display.print("Menu");
+      calc_batt();  // HERE [BACK] BUTTON
+      display.display();
+    }
+      break;
+    case 2:{
+      menu_layer=2;
+      display.clearDisplay();
+      display.setCursor(TIT_OFFSET,ZEILE1);
+      display.print("-- Dolly --   ");
+        display.print("[");
+        display.print(menu_layer);
+        display.print("]");
+
+        display.setCursor(18,8);
+        display.print("-----------------");
+
+      display.setCursor(X_OFFSET-100,ZEILE2);
+      display.print(">");
+      display.setCursor(X_OFFSET,ZEILE2);
+      display.print("Menu");
+      display.setCursor(X_OFFSET-8,ZEILE3);
+      display.print(">");
+      display.setCursor(X_OFFSET,ZEILE3);
+      display.print("Menu");
+      calc_batt();
+      display.display();
+    }
+      break;
+    case 3:{
+      menu_layer=3;
+      display.clearDisplay();
+      display.setCursor(TIT_OFFSET,ZEILE1);
+      display.print("-- Dolly --   ");
+        display.print("[");
+        display.print(menu_layer);
+        display.print("]");
+
+        display.setCursor(18,8);
+        display.print("-----------------");
+
+      display.setCursor(X_OFFSET-8,ZEILE2);
+      display.print(">");
+      display.setCursor(X_OFFSET,ZEILE2);
+      display.print("Menu");
+      display.setCursor(X_OFFSET-100,ZEILE3);
+      display.print(">");
+      display.setCursor(X_OFFSET,ZEILE3);
+      display.print("Menu");
+      calc_batt();
+      display.display();
+    }
+      break;
+    default:{
+      display.clearDisplay();
+      display.setCursor(17,ZEILE1);
+      display.print("X-Slider M.Tekaat");
+      display.setCursor(TIT_OFFSET,ZEILE2);
+      display.print("ver. 0.1");
+      // print Battery charge
+      calc_batt();
+      display.display();
+    }
+      break;
+  }
 }
